@@ -9,8 +9,9 @@ import hello.core.member.MemoryMemberRepository;
 
 //주문 생성 요청이 오면, 회원 정보를 조회하고, 할인 정책을 적용한 다음 주문 객체를 생성해서 반환한다.
 //메모리 회원 리포지토리와, 고정 금액 할인 정책을 구현체로 생성한다.
-public class OrderServiceImpl implements OrderService { //주문 서비스 구현체
-    private final MemberRepository memberRepository;
+public class OrderServiceImpl implements OrderService { //주문 서비스 구현체. DIP를 지키고 있다.
+    private final MemberRepository memberRepository; //회원찾기위해
+    //생성자 this를 통해서 할당
     private final DiscountPolicy discountPolicy;
 
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
@@ -42,7 +43,7 @@ public class OrderServiceImpl implements OrderService { //주문 서비스 구�
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);
-        int discountPrice = discountPolicy.discount(member, itemPrice);
+        int discountPrice = discountPolicy.discount(member, itemPrice); //할인정책 적용, 회원정보를 넘김.
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }

@@ -1,17 +1,28 @@
 package hello.core.member;
 
+import hello.core.AppConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 //애플리케이션 로직 테스트는 JUnit을 사용하는게 좋다.
+// 단위테스트를 잘 만드는게 중요하다.
+// 여기서 말하는 단위테스트란, 스프링이나 컨테이너의 도움없이 순수하게 자바코드로 테스트 하는 것
 class MemberServiceTest { // 회원 가입 테스트
-    MemberService memberService  =new MemberServiceImpl();
+//    MemberService memberService  =new MemberServiceImpl();
+    MemberService memberService;
+
+    @BeforeEach // @Test 실행전에 호출됨.
+    public void beforeEach(){
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+    }
 
     @Test
     void join() {
-        //given
+//        given
         Member member = new Member(1L, "memberA", Grade.VIP);
 
         //when
