@@ -1,12 +1,21 @@
 package hello.core.member;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService {
     //클라이언트인 MemberServiceImpl 입장에서는 의존관계를 마치 외부에서 주입해주는 것 같다고 해서
     //DI(Dependency Injection) 우리말로 *의존관계 주입* 또는 의존성 주입이라 한다.
 
 //    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    private final MemberRepository memberRepository;
+
     // 인터페이스만 존재, 추상화에만 의존 DIP?
+
+    private final MemberRepository memberRepository;
+
+    @Autowired // 자동 주입: ac.getBean(MemberRepository.class), 생성자에 달이준다.
     public MemberServiceImpl(MemberRepository memberRepository) {
 
         this.memberRepository = memberRepository;

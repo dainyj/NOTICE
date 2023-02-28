@@ -6,14 +6,18 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 //주문 생성 요청이 오면, 회원 정보를 조회하고, 할인 정책을 적용한 다음 주문 객체를 생성해서 반환한다.
 //메모리 회원 리포지토리와, 고정 금액 할인 정책을 구현체로 생성한다.
+@Component
 public class OrderServiceImpl implements OrderService { //주문 서비스 구현체. DIP를 지키고 있다.
     private final MemberRepository memberRepository; //회원찾기위해
     //생성자 this를 통해서 할당
     private final DiscountPolicy discountPolicy;
 
+    @Autowired // 생성자에 붙여준다. 의존관계 자동 주입
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
