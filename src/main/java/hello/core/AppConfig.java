@@ -18,15 +18,24 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig { //애플리케이션 전체 환경설정하고 구성하는 클래스
     //객체 생성과 연결 담당
 
+    //@Bean memberService -> new MemoryMemberRepository()
+    //@Bean orderService -> new MemoryMemberRepository()
+
     @Bean
     public MemberService memberService() {
 //        return new MemberServiceImpl(new MemoryMemberRepository());
+
+        //1번
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
         // 생성자를 통해서 구현체에 뭐가 들어길지 정한다.
     }
 
     @Bean
     public OrderService orderService() {
+
+        //1번
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(
 //                new MemoryMemberRepository(),
                 memberRepository(),
@@ -38,6 +47,9 @@ public class AppConfig { //애플리케이션 전체 환경설정하고 구성�
 
     @Bean
     public MemberRepository memberRepository() {
+
+        //2번?? 3번??
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 

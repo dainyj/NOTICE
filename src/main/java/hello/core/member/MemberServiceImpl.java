@@ -22,6 +22,11 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findById(memberId);
     }
 
+    //테스트 용도, 테스트용이므로 인터페이스에는 굳이 추가 안함.
+    public MemberRepository getMemberRepository(){
+        return memberRepository;
+    }
+
 }
 
 //DIP완성
